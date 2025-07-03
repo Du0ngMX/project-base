@@ -1,0 +1,34 @@
+1, Introduce about yourself : name, age, address, skill, exp
+2, Introduce about one of projects you joined (in CV)
+3, Are u ready to learn and work other technolory?
+4, Đã từng làm việc với kh nhật bao giờ chưa? có thể join từ lúc nào?
+
+Q: Please Introduce your self?
+Q: How long have you been working in xxx company?
+Q: please explain about your project (working history) ?
+Q: What kind of database can you work with?
+Q: Please explain about your test-experience?
+what kind of test ? Can you create test cases?
+Q: Do you have any questions
+...
+
+I would like to thank you for your consideration for my application for the position of
+I would like to confirm my presence at your office by 
+I am looking forward to meeting you and having the employment opportunity discussed at length.
+Yours sincerely,
+
+
+Hi, I'm Harry. Currently,
+I'm a full-stack developer at Lancaster University.
+I have 3 years of experience with .NET technologies and 2 years of experience with JS frameworks such as React and AngularJS. 
+
+My works involved talking with stakeholders and product owner to define requirements,
+implementing back-end API,
+design and implement web and mobile front-end.
+I also take care of the module design and documentation.
+Sometimes, I do pair programming and code review with junior developers to keep our code consistent and well-maintained.
+
+
+
+
+
