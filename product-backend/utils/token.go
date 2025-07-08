@@ -1,16 +1,3 @@
-// package utils
-
-// import (
-// 	"github.com/golang-jwt/jwt/v5"
-// 	"os"
-// )
-
-// func ValidateToken(tokenStr string) (*jwt.Token, error) {
-// 	return jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-// 		return []byte(os.Getenv("JWT_SECRET")), nil
-// 	})
-// }
-
 package utils
 
 import (

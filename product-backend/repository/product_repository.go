@@ -1,30 +1,3 @@
-// package repository
-
-// import (
-// 	"product-backend/models"
-
-// 	"gorm.io/gorm"
-// )
-
-// type ProductRepository struct {
-// 	db *gorm.DB
-// }
-
-// func NewProductRepository(db *gorm.DB) *ProductRepository {
-// 	db.AutoMigrate(&models.Product{})
-// 	return &ProductRepository{db}
-// }
-
-// func (r *ProductRepository) GetAll() ([]models.Product, error) {
-// 	var products []models.Product
-// 	err := r.db.Find(&products).Error
-// 	return products, err
-// }
-
-// func (r *ProductRepository) Create(p *models.Product) error {
-// 	return r.db.Create(p).Error
-// }
-
 package repository
 
 import (

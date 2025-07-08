@@ -2,7 +2,7 @@ package services
 
 import (
 	"errors"
-	"product-backend/models" // Use models.User
+	"product-backend/models"
 	"product-backend/repository"
 	"product-backend/utils"
 	"golang.org/x/crypto/bcrypt"
