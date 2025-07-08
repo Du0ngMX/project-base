@@ -1,14 +1,16 @@
 package handlers
 
 import (
-	"context"
+	"net/http"
+	"strconv"
+
 	"product-backend/models"
 	"product-backend/services"
-	pb "product-backend/grpc"
+
+	"github.com/gin-gonic/gin"
 )
 
 type ProductHandler struct {
-	pb.UnimplementedProductServiceServer
 	productService *services.ProductService
 }
 
@@ -16,74 +18,91 @@ func NewProductHandler(productService *services.ProductService) *ProductHandler 
 	return &ProductHandler{productService: productService}
 }
 
-func (h *ProductHandler) CreateProduct(ctx context.Context, req *pb.CreateProductRequest) (*pb.ProductResponse, error) {
+func (h *ProductHandler) CreateProduct(c *gin.Context) {
+	var req struct {
+		Name     string  `json:"name"`
+		Price    float64 `json:"price"`
+		Quantity int     `json:"quantity"`
+	}
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	product := models.Product{
 		Name:     req.Name,
-		Price:    float64(req.Price),
-		Quantity: int(req.Quantity),
+		Price:    req.Price,
+		Quantity: req.Quantity,
 	}
 	if err := h.productService.CreateProduct(&product); err != nil {
-		return nil, err
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
-	return &pb.ProductResponse{
-		Id:       int32(product.ID),
-		Name:     product.Name,
-		Price:    float32(product.Price),
-		Quantity: int32(product.Quantity),
-	}, nil
+	c.JSON(http.StatusCreated, product)
 }
 
-func (h *ProductHandler) GetProduct(ctx context.Context, req *pb.GetProductRequest) (*pb.ProductResponse, error) {
-	product, err := h.productService.GetProduct(int(req.Id))
+func (h *ProductHandler) GetProduct(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		return nil, err
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Product ID must be a number"})
+		return
 	}
-	return &pb.ProductResponse{
-		Id:       int32(product.ID),
-		Name:     product.Name,
-		Price:    float32(product.Price),
-		Quantity: int32(product.Quantity),
-	}, nil
+	product, err := h.productService.GetProduct(id)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, product)
 }
 
-func (h *ProductHandler) UpdateProduct(ctx context.Context, req *pb.UpdateProductRequest) (*pb.ProductResponse, error) {
+func (h *ProductHandler) UpdateProduct(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Provided product ID is not valid"})
+		return
+	}
+	var req struct {
+		Name     string  `json:"name"`
+		Price    float64 `json:"price"`
+		Quantity int     `json:"quantity"`
+	}
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Provided product ID is not valid"})
+		return
+	}
 	product := models.Product{
-		ID:       int(req.Id),
+		ID:       id,
 		Name:     req.Name,
-		Price:    float64(req.Price),
-		Quantity: int(req.Quantity),
+		Price:    req.Price,
+		Quantity: req.Quantity,
 	}
 	if err := h.productService.UpdateProduct(&product); err != nil {
-		return nil, err
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update product: " + err.Error()})
+		return
 	}
-	return &pb.ProductResponse{
-		Id:       int32(product.ID),
-		Name:     product.Name,
-		Price:    float32(product.Price),
-		Quantity: int32(product.Quantity),
-	}, nil
+	c.JSON(http.StatusOK, product)
 }
 
-func (h *ProductHandler) DeleteProduct(ctx context.Context, req *pb.DeleteProductRequest) (*pb.DeleteProductResponse, error) {
-	if err := h.productService.DeleteProduct(int(req.Id)); err != nil {
-		return nil, err
+func (h *ProductHandler) DeleteProduct(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Unable to parse product ID"})
+		return
 	}
-	return &pb.DeleteProductResponse{Success: true}, nil
+	if err := h.productService.DeleteProduct(id); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete product: " + err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"success": true})
 }
 
-func (h *ProductHandler) ListProducts(ctx context.Context, req *pb.ListProductsRequest) (*pb.ListProductsResponse, error) {
+func (h *ProductHandler) ListProducts(c *gin.Context) {
 	products, err := h.productService.ListProducts()
 	if err != nil {
-		return nil, err
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve products: " + err.Error()})
+		return
 	}
-	var productResponses []*pb.ProductResponse
-	for _, p := range products {
-		productResponses = append(productResponses, &pb.ProductResponse{
-			Id:       int32(p.ID),
-			Name:     p.Name,
-			Price:    float32(p.Price),
-			Quantity: int32(p.Quantity),
-		})
-	}
-	return &pb.ListProductsResponse{Products: productResponses}, nil
+	c.JSON(http.StatusOK, products)
 }

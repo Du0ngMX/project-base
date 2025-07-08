@@ -3,14 +3,13 @@ package main
 import (
 	"fmt"
 	"log"
-	"net"
 	"product-backend/config"
+	"product-backend/handlers"
+	"product-backend/middleware"
 	"product-backend/repository"
 	"product-backend/services"
-	"product-backend/handlers"
-	pb "product-backend/grpc"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
+
+	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -38,21 +37,29 @@ func main() {
 	authService := services.NewAuthService(userRepo)
 	productService := services.NewProductService(productRepo)
 
-	// Start gRPC server
-	lis, err := net.Listen("tcp", ":50051")
+	productHandler := handlers.NewProductHandler(productService)
+	authHandler := handlers.NewAuthHandler(authService)
+
+	// Initialize Gin router
+	router := gin.Default()
+	err = router.SetTrustedProxies([]string{"127.0.0.1"})
+	// err = router.SetTrustedProxies(nil) // Trust all proxies (disable warning)
 	if err != nil {
-		log.Fatalf("Failed to listen: %v", err)
+		log.Fatalf("Failed to set trusted proxies: %v", err)
 	}
 
-	grpcServer := grpc.NewServer()
-	pb.RegisterProductServiceServer(grpcServer, handlers.NewProductHandler(productService))
-	pb.RegisterAuthServiceServer(grpcServer, handlers.NewAuthHandler(authService))
-
-	// Enable reflection
-	reflection.Register(grpcServer)
-
-	log.Println("gRPC server is running on port :50051")
-	if err := grpcServer.Serve(lis); err != nil {
-		log.Fatalf("Failed to serve: %v", err)
+	// Register RESTful routes (handlers will be updated as needed)
+	productRoutes := router.Group("/products", middleware.JWTAuth())
+	{
+		productRoutes.POST("/", productHandler.CreateProduct)
+		productRoutes.GET("/", productHandler.ListProducts)
+		productRoutes.GET(":id", productHandler.GetProduct)
+		productRoutes.PUT(":id", productHandler.UpdateProduct)
+		productRoutes.DELETE(":id", productHandler.DeleteProduct)
 	}
+
+	router.POST("/login", authHandler.Login)
+
+	// Run HTTP server on port 8080
+	router.Run(":8080")
 }
