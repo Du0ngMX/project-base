@@ -1,9 +1,6 @@
 'use strict';
 
 var electron = require('electron');
-var app = electron.app;
-var ipcMain = electron.ipcMain;
-var dialog = electron.dialog;
 var BrowserWindow = electron.BrowserWindow;
 
 var winControl = {
@@ -29,7 +26,6 @@ var winControl = {
 
 		// Close all other windows when hidden
 		this.mainWindow.on('closed', () => {
-			console.log('main window closed.');
 			this.mainWindow = null;
 			global.mainWindow = null;
 		});
@@ -55,7 +51,6 @@ var winControl = {
 		playWindow.setMenu(null);
 
 		playWindow.on('closed', () => {
-			console.log('play window closed.');
 			// Hiện lại main window khi đóng play window
 			if (this.mainWindow && !this.mainWindow.isDestroyed()) {
 				this.mainWindow.show();

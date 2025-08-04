@@ -3,7 +3,6 @@
   
   // Import các module cần thiết
   const { remote } = require('electron');
-  const path = require('path');
   
   // Dữ liệu câu hỏi - 10 món ăn Việt Nam
   const gameData = [
@@ -173,7 +172,7 @@
   function loadQuestion() {
     // Kiểm tra dữ liệu game
     if (!gameData || gameData.length === 0) {
-      alert('Không thể tải dữ liệu trò chơi!');
+      showNotification('Không thể tải dữ liệu trò chơi!', 'error');
       return;
     }
     
@@ -333,7 +332,7 @@
     // Kiểm tra đã điền đủ chưa
     const hasEmpty = currentAnswer.some(slot => slot === null);
     if (hasEmpty) {
-      alert('Vui lòng điền đầy đủ tất cả các ô!');
+      showNotification('Vui lòng điền đầy đủ tất cả các ô!', 'warning');
       return;
     }
     
@@ -453,6 +452,14 @@
     const mainWindow = remote.getGlobal('mainWindow');
     if (mainWindow) {
       mainWindow.webContents.send('show-main-menu');
+    }
+  });
+
+  // Cleanup timer khi window đóng
+  window.addEventListener('beforeunload', () => {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
     }
   });
 

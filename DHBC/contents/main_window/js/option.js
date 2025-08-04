@@ -188,7 +188,7 @@
     const name = nameInput.value.trim();
     
     if (name.length === 0) {
-      alert('Vui lòng nhập tên của bạn!');
+      showNotification('Vui lòng nhập tên của bạn!', 'warning');
       nameInput.focus();
       return;
     }
