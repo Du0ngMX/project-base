@@ -38,8 +38,8 @@ var winControl = {
 	// Create and display album window. Specify an image to display as an argument
 	showPlayWindow: function() {
 		let playWindow = new BrowserWindow({
-			width: 600, 
-			height: 900, 
+			width: 500, 
+			height: 600, 
 			show: true, 
 			resizable: false,
 			webPreferences: {

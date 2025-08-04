@@ -8,12 +8,53 @@
 </head>
 <body>
   <h1 class="title">Đuổi Hình Bắt Chữ</h1>
+  
+  <!-- Menu chính -->
   <div class="menu u--visible" id="menuBox">
     <ul>
-      <li class="button button--start" id="startLnk" data-show="startBox" data-hide="menuBox">Bắt đầu</li>
-      <li class="button button--scores" id="optionLnk" data-show="scoresBox" data-hide="menuBox">Tùy chọn</li>
-      <li class="button button--about" id="aboutLnk" data-show="aboutBox" data-hide="menuBox">Thoát</li>
+      <li class="button button--start" id="startLnk">Bắt đầu</li>
+      <li class="button button--scores" id="optionLnk">Tùy chọn</li>
+      <li class="button button--about" id="aboutLnk">Thoát</li>
     </ul>
+  </div>
+
+  <!-- Màn hình setting -->
+  <div class="settings-screen u--hidden" id="settingsBox">
+    <h2 class="settings-title">Cài đặt</h2>
+    
+    <div class="setting-item">
+      <label>Số câu hỏi:</label>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="questionCount" value="5">
+          <span>5 câu</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="questionCount" value="10" checked>
+          <span>10 câu</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="questionCount" value="15">
+          <span>15 câu</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="setting-item">
+      <label>Thời gian mỗi câu: <span id="timeValue">15</span> giây</label>
+      <div class="time-slider">
+        <input type="range" id="timePerQuestion" min="5" max="30" value="15" step="1">
+        <div class="slider-labels">
+          <span>5s</span>
+          <span>30s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-buttons">
+      <button class="button button--save" id="saveSettingsBtn">Lưu</button>
+      <button class="button button--cancel" id="cancelSettingsBtn">Hủy</button>
+    </div>
   </div>
   <script type="text/javascript" src="js/option.js"></script>
 </body>

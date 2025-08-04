@@ -69,17 +69,34 @@
     }
   ];
 
+  // Load settings từ localStorage
+  let gameSettings = {
+    questionCount: 10,
+    timePerQuestion: 15
+  };
+  
+  try {
+    const savedSettings = localStorage.getItem('currentGameSettings');
+    if (savedSettings) {
+      gameSettings = JSON.parse(savedSettings);
+    }
+  } catch (error) {
+    console.error('Error loading settings:', error);
+  }
+
   // Biến quản lý trạng thái game
-  let currentQuestion = 0;      // Câu hỏi hiện tại (0-9)
+  let currentQuestion = 0;      // Câu hỏi hiện tại
   let score = 0;                // Điểm số
-  let timeLeft = 30;            // Thời gian còn lại
+  let timeLeft = gameSettings.timePerQuestion; // Thời gian còn lại
   let timerInterval = null;     // Interval cho đồng hồ đếm ngược
   let currentAnswer = [];       // Mảng chứa các ký tự đã chọn
   let availableLetters = [];    // Mảng chứa các ký tự gợi ý đã xáo trộn
+  let maxQuestions = Math.min(gameSettings.questionCount, gameData.length); // Giới hạn số câu hỏi
 
   // Cache các element DOM để tránh query nhiều lần
   const elements = {
     currentQuestion: document.getElementById('currentQuestion'),
+    totalQuestions: document.getElementById('totalQuestions'),
     score: document.getElementById('score'),
     timer: document.getElementById('timer'),
     questionImage: document.getElementById('questionImage'),
@@ -112,10 +129,10 @@
 
   /**
    * Khởi động bộ đếm thời gian cho câu hỏi
-   * Đếm ngược từ 30s, tự động chuyển câu khi hết giờ
+   * Đếm ngược từ timePerQuestion, tự động chuyển câu khi hết giờ
    */
   function startTimer() {
-    timeLeft = 30;
+    timeLeft = gameSettings.timePerQuestion;
     elements.timer.textContent = timeLeft;
     
     // Clear timer cũ nếu có
@@ -154,7 +171,7 @@
     }
     
     // Kiểm tra đã hết câu hỏi chưa
-    if (currentQuestion >= gameData.length) {
+    if (currentQuestion >= maxQuestions) {
       endGame();
       return;
     }
@@ -346,7 +363,7 @@
     clearInterval(timerInterval);
     currentQuestion++;
     
-    if (currentQuestion < gameData.length) {
+    if (currentQuestion < maxQuestions) {
       loadQuestion();
     } else {
       endGame();
@@ -398,9 +415,11 @@
   // Đợi DOM sẵn sàng trước khi bắt đầu game
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+      elements.totalQuestions.textContent = maxQuestions;
       loadQuestion();
     });
   } else {
+    elements.totalQuestions.textContent = maxQuestions;
     loadQuestion();
   }
 })();

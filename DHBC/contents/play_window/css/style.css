@@ -21,11 +21,11 @@ body {
    ================================= */
 .game-container {
     background-color: white;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 580px;
+    max-width: 480px;
 }
 
 /* =================================
@@ -38,8 +38,8 @@ body {
 
 .title {
     color: #2c3e50;
-    margin-bottom: 15px;
-    font-size: 28px;
+    margin-bottom: 10px;
+    font-size: 24px;
 }
 
 /* Thanh thông tin game: câu hỏi, điểm, thời gian */
@@ -52,7 +52,7 @@ body {
 }
 
 .question-info, .score-info, .timer-info {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -74,9 +74,9 @@ body {
 /* Layout chính: hình ảnh trái, ký tự phải */
 .main-game-area {
     display: flex;
-    gap: 20px;
-    margin-bottom: 30px;
-    min-height: 300px;
+    gap: 15px;
+    margin-bottom: 20px;
+    min-height: 200px;
 }
 
 .left-section {
@@ -87,7 +87,7 @@ body {
 }
 
 .right-section {
-    width: 200px;
+    width: 150px;
     display: flex;
     flex-direction: column;
 }
@@ -95,7 +95,7 @@ body {
 /* Khung hiển thị hình ảnh câu hỏi */
 .image-container {
     width: 100%;
-    height: 280px;
+    height: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -189,15 +189,15 @@ body {
    ================================= */
 .letters-section {
     background-color: #f8f9fa;
-    padding: 15px;
+    padding: 10px;
     border-radius: 8px;
     border: 2px solid #dee2e6;
     height: 100%;
 }
 
 .letters-section h3 {
-    margin: 0 0 15px 0;
-    font-size: 16px;
+    margin: 0 0 10px 0;
+    font-size: 14px;
     color: #2c3e50;
 }
 
@@ -215,13 +215,13 @@ body {
 
 /* Button ký tự */
 .letter-btn {
-    padding: 12px;
+    padding: 10px;
     background-color: #3498db;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     transition: all 0.3s;
     width: 100%;
