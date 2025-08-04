@@ -1,0 +1,16 @@
+{
+  "name": "dhbc",
+  "version": "1.0.0",
+  "description": "mini game dhbc.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "DuongMX",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "electron": "^4.1.4"
+  }
+}

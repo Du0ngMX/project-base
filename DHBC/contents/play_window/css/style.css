@@ -1,0 +1,357 @@
+/* =================================
+   RESET VÀ CÀI ĐẶT CƠ BẢN
+   ================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* =================================
+   CONTAINER CHÍNH
+   ================================= */
+.game-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 580px;
+}
+
+/* =================================
+   HEADER GAME
+   ================================= */
+.game-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 28px;
+}
+
+/* Thanh thông tin game: câu hỏi, điểm, thời gian */
+.game-stats {
+    display: flex;
+    justify-content: space-around;
+    background-color: #ecf0f1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.question-info, .score-info, .timer-info {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.timer-info {
+    color: #e74c3c; /* Màu đỏ cho thời gian */
+}
+
+.score-info {
+    color: #27ae60; /* Màu xanh cho điểm */
+}
+
+/* =================================
+   KHU VỰC CHƠI GAME
+   ================================= */
+.game-content {
+    text-align: center;
+}
+
+/* Layout chính: hình ảnh trái, ký tự phải */
+.main-game-area {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    min-height: 300px;
+}
+
+.left-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-section {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Khung hiển thị hình ảnh câu hỏi */
+.image-container {
+    width: 100%;
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #dee2e6;
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* =================================
+   KHU VỰC ĐÁP ÁN
+   ================================= */
+.answer-section {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Container cho các ô đáp án */
+.answer-box {
+    min-height: 50px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+}
+
+/* Ô đáp án từng ký tự */
+.answer-slot {
+    width: 40px;
+    height: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #dee2e6;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: all 0.3s;
+    background-color: #fff;
+}
+
+/* Ô trống */
+.answer-slot.empty {
+    background-color: #f8f9fa;
+    cursor: default;
+}
+
+/* Ô đã điền */
+.answer-slot.filled {
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    border-color: #2980b9;
+}
+
+.answer-slot.filled:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Nút xóa tất cả */
+.clear-btn {
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.clear-btn:hover {
+    background-color: #c0392b;
+}
+
+/* =================================
+   KHU VỰC KÝ TỰ GỢI Ý
+   ================================= */
+.letters-section {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+    height: 100%;
+}
+
+.letters-section h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+/* Grid 2 cột cho ký tự */
+.letters-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+}
+
+.answer-area {
+    margin-top: 20px;
+}
+
+/* Button ký tự */
+.letter-btn {
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.letter-btn:hover:not(.disabled) {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Ký tự đã chọn */
+.letter-btn.disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* =================================
+   NÚT ĐIỀU KHIỂN
+   ================================= */
+.game-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.submit-btn, .skip-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+/* Nút kiểm tra */
+.submit-btn {
+    background-color: #27ae60;
+    color: white;
+}
+
+.submit-btn:hover {
+    background-color: #219a52;
+}
+
+/* Nút bỏ qua */
+.skip-btn {
+    background-color: #f39c12;
+    color: white;
+}
+
+.skip-btn:hover {
+    background-color: #d68910;
+}
+
+/* =================================
+   MÀN HÌNH KẾT THÚC
+   ================================= */
+.game-over {
+    text-align: center;
+    padding: 40px;
+}
+
+.game-over h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+.game-over p {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #27ae60;
+}
+
+.play-again-btn, .back-menu-btn {
+    padding: 12px 30px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.play-again-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+.play-again-btn:hover {
+    background-color: #2980b9;
+}
+
+.back-menu-btn {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.back-menu-btn:hover {
+    background-color: #7f8c8d;
+}
+
+/* =================================
+   ANIMATION
+   ================================= */
+/* Animation lắc khi sai */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.wrong-answer .answer-slot.filled {
+    animation: shake 0.5s;
+    background-color: #e74c3c !important;
+    border-color: #c0392b !important;
+}
+
+/* Animation phóng to khi đúng */
+@keyframes correct {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.correct-answer .answer-slot.filled {
+    animation: correct 0.5s;
+    background-color: #27ae60 !important;
+    border-color: #229954 !important;
+}
