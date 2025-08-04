@@ -13,6 +13,7 @@
   <div class="menu u--visible" id="menuBox">
     <ul>
       <li class="button button--start" id="startLnk">Bắt đầu</li>
+      <li class="button button--leaderboard" id="leaderboardLnk">Bảng xếp hạng</li>
       <li class="button button--scores" id="optionLnk">Tùy chọn</li>
       <li class="button button--about" id="aboutLnk">Thoát</li>
     </ul>
@@ -56,6 +57,37 @@
       <button class="button button--cancel" id="cancelSettingsBtn">Hủy</button>
     </div>
   </div>
+
+  <!-- Màn hình nhập tên -->
+  <div class="name-screen u--hidden" id="nameBox">
+    <h2 class="name-title">Nhập tên của bạn</h2>
+    <div class="name-input-container">
+      <input type="text" id="playerName" placeholder="Tên người chơi" maxlength="20" autofocus>
+      <p class="name-hint">Tối đa 20 ký tự</p>
+    </div>
+    <div class="name-buttons">
+      <button class="button button--play" id="playGameBtn">Chơi</button>
+      <button class="button button--cancel" id="cancelNameBtn">Hủy</button>
+    </div>
+  </div>
+
+  <!-- Màn hình bảng xếp hạng -->
+  <div class="leaderboard-screen u--hidden" id="leaderboardBox">
+    <h2 class="leaderboard-title">Bảng Xếp Hạng</h2>
+    <div class="leaderboard-container">
+      <div class="leaderboard-header">
+        <span>Hạng</span>
+        <span>Tên</span>
+        <span>Điểm</span>
+        <span>Thời gian</span>
+      </div>
+      <div id="leaderboardList" class="leaderboard-list">
+        <!-- Danh sách sẽ được load động -->
+      </div>
+    </div>
+    <button class="button button--back" id="backFromLeaderboardBtn">Quay lại</button>
+  </div>
+
   <script type="text/javascript" src="js/option.js"></script>
 </body>
 

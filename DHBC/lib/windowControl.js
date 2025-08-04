@@ -24,10 +24,14 @@ var winControl = {
 		this.mainWindow.loadURL('file://' + __dirname + '/../contents/main_window/index.html');
 		this.mainWindow.setMenu(null);
 
+		// Đặt mainWindow làm biến global để các window khác có thể truy cập
+		global.mainWindow = this.mainWindow;
+
 		// Close all other windows when hidden
 		this.mainWindow.on('closed', () => {
 			console.log('main window closed.');
 			this.mainWindow = null;
+			global.mainWindow = null;
 		});
 
 		this.mainWindow.once('ready-to-show', () => {

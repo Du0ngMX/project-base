@@ -69,16 +69,23 @@
     }
   ];
 
-  // Load settings từ localStorage
+  // Load settings và tên người chơi từ localStorage
   let gameSettings = {
     questionCount: 10,
     timePerQuestion: 15
   };
   
+  let playerName = 'Người chơi';
+  
   try {
     const savedSettings = localStorage.getItem('currentGameSettings');
     if (savedSettings) {
       gameSettings = JSON.parse(savedSettings);
+    }
+    
+    const savedName = localStorage.getItem('currentPlayerName');
+    if (savedName) {
+      playerName = savedName;
     }
   } catch (error) {
     console.error('Error loading settings:', error);
@@ -376,11 +383,42 @@
   function endGame() {
     clearInterval(timerInterval);
     
+    // Lưu điểm vào leaderboard
+    saveScoreToLeaderboard();
+    
     // Ẩn màn chơi, hiện màn kết thúc
     elements.gameContent.style.display = 'none';
     elements.gameStats.style.display = 'none';
     elements.gameOver.style.display = 'block';
     elements.finalScore.textContent = score;
+  }
+
+  /**
+   * Lưu điểm vào bảng xếp hạng
+   */
+  function saveScoreToLeaderboard() {
+    // Lấy leaderboard hiện tại
+    const leaderboard = JSON.parse(localStorage.getItem('leaderboard') || '[]');
+    
+    // Thêm điểm mới
+    const newEntry = {
+      name: playerName,
+      score: score,
+      date: new Date().toLocaleString('vi-VN')
+    };
+    
+    leaderboard.push(newEntry);
+    
+    // Sắp xếp theo điểm cao nhất
+    leaderboard.sort((a, b) => b.score - a.score);
+    
+    // Giữ lại top 10
+    if (leaderboard.length > 10) {
+      leaderboard.length = 10;
+    }
+    
+    // Lưu lại
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
   }
 
   /**
@@ -409,7 +447,13 @@
   // Nút quay về menu chính
   elements.backMenuBtn.addEventListener('click', () => {
     const win = remote.getCurrentWindow();
-    win.close(); // Chỉ cần đóng cửa sổ game, main window sẽ tự động hiện lại
+    win.close(); // Đóng cửa sổ game
+    
+    // Gửi message để main window biết quay về menu chính
+    const mainWindow = remote.getGlobal('mainWindow');
+    if (mainWindow) {
+      mainWindow.webContents.send('show-main-menu');
+    }
   });
 
   // Đợi DOM sẵn sàng trước khi bắt đầu game
