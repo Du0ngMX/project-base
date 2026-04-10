@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Đuổi Hình Bắt Chữ</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="../common/notification.css" />
+</head>
+<body>
+  <h1 class="title">Đuổi Hình Bắt Chữ</h1>
+  
+  <!-- Menu chính -->
+  <div class="menu u--visible" id="menuBox">
+    <ul>
+      <li class="button button--start" id="startLnk">Bắt đầu</li>
+      <li class="button button--leaderboard" id="leaderboardLnk">Bảng xếp hạng</li>
+      <li class="button button--scores" id="optionLnk">Tùy chọn</li>
+      <li class="button button--about" id="aboutLnk">Thoát</li>
+    </ul>
+  </div>
+
+  <!-- Màn hình setting -->
+  <div class="settings-screen u--hidden" id="settingsBox">
+    <h2 class="settings-title">Cài đặt</h2>
+    
+    <div class="setting-item">
+      <label>Số câu hỏi:</label>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="questionCount" value="5">
+          <span>5 câu</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="questionCount" value="10" checked>
+          <span>10 câu</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="questionCount" value="15">
+          <span>15 câu</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="setting-item">
+      <label>Thời gian mỗi câu: <span id="timeValue">15</span> giây</label>
+      <div class="time-slider">
+        <input type="range" id="timePerQuestion" min="5" max="30" value="15" step="1">
+        <div class="slider-labels">
+          <span>5s</span>
+          <span>30s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-buttons">
+      <button class="button button--save" id="saveSettingsBtn">Lưu</button>
+      <button class="button button--cancel" id="cancelSettingsBtn">Hủy</button>
+    </div>
+  </div>
+
+  <!-- Màn hình nhập tên -->
+  <div class="name-screen u--hidden" id="nameBox">
+    <h2 class="name-title">Nhập tên của bạn</h2>
+    <div class="name-input-container">
+      <input type="text" id="playerName" placeholder="Tên người chơi" maxlength="20" autofocus>
+      <p class="name-hint">Tối đa 20 ký tự</p>
+    </div>
+    <div class="name-buttons">
+      <button class="button button--play" id="playGameBtn">Chơi</button>
+      <button class="button button--cancel" id="cancelNameBtn">Hủy</button>
+    </div>
+  </div>
+
+  <!-- Màn hình bảng xếp hạng -->
+  <div class="leaderboard-screen u--hidden" id="leaderboardBox">
+    <h2 class="leaderboard-title">Bảng Xếp Hạng</h2>
+    <div class="leaderboard-container">
+      <div class="leaderboard-header">
+        <span>Hạng</span>
+        <span>Tên</span>
+        <span>Điểm</span>
+        <span>Thời gian</span>
+      </div>
+      <div id="leaderboardList" class="leaderboard-list">
+        <!-- Danh sách sẽ được load động -->
+      </div>
+    </div>
+    <button class="button button--back" id="backFromLeaderboardBtn">Quay lại</button>
+  </div>
+
+  <script type="text/javascript" src="../common/notification.js"></script>
+  <script type="text/javascript" src="js/option.js"></script>
+</body>
+
+</html>

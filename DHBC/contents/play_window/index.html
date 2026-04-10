@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="../common/notification.css" />
+  <title>Đuổi Hình Bắt Chữ</title>
+</head>
+<body>
+  <div class="game-container">
+    <div class="game-header">
+      <h1 class="title">Đuổi Hình Bắt Chữ</h1>
+      <div class="game-stats">
+        <div class="question-info">
+          <span>Câu hỏi: </span>
+          <span id="currentQuestion">1</span>
+          <span>/</span><span id="totalQuestions">10</span>
+        </div>
+        <div class="score-info">
+          <span>Điểm: </span>
+          <span id="score">0</span>
+        </div>
+        <div class="timer-info">
+          <span>Thời gian: </span>
+          <span id="timer">30</span>
+          <span>s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-content">
+      <div class="main-game-area">
+        <div class="left-section">
+          <div class="image-container">
+            <img id="questionImage" src="" alt="Hình ảnh câu hỏi">
+          </div>
+        </div>
+
+        <div class="right-section">
+          <div class="letters-section">
+            <h3>Ký tự gợi ý:</h3>
+            <div class="letters-grid" id="lettersGrid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="answer-area">
+        <div class="answer-section">
+          <div class="answer-box" id="answerBox"></div>
+          <button class="clear-btn" id="clearBtn">Xóa</button>
+        </div>
+
+        <div class="game-controls">
+          <button class="submit-btn" id="submitBtn">Kiểm tra</button>
+          <button class="skip-btn" id="skipBtn">Bỏ qua</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-over" id="gameOver" style="display: none;">
+      <h2>Kết thúc trò chơi!</h2>
+      <p>Tổng điểm của bạn: <span id="finalScore">0</span></p>
+      <button class="play-again-btn" id="playAgainBtn">Chơi lại</button>
+      <button class="back-menu-btn" id="backMenuBtn">Về menu</button>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="../common/notification.js"></script>
+  <script type="text/javascript" src="js/option.js"></script>
+</body>
+
+</html>

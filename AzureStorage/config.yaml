@@ -1,0 +1,11 @@
+storage:
+  storageRetryCount: 3
+  storageRetryInterval: 1000
+  currentSysBlobStorage:
+    isAzureCredential: false
+    connectionString: "AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;DefaultEndpointsProtocol=http;BlobEndpoint=http://localhost:10000/devstoreaccount1;"
+    containerId: currentsysblobstorage
+  newSysBlobStorage:
+    isAzureCredential: false
+    connectionString: "AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;DefaultEndpointsProtocol=http;BlobEndpoint=http://localhost:10000/devstoreaccount1;"
+    containerId: newsysblobstorage
